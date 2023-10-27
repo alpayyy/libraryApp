@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input, Button } from "antd"; 
+import DeleteBook from "../BookDelete/BookDelete";
+
 const BookApp = () => {
   const [book, setBook] = useState(''); 
   const [books, setBooks] = useState([]);
@@ -7,6 +9,11 @@ const BookApp = () => {
   useEffect(() => {
     console.log(books);
   }, [books]);
+
+  const deleteBook =(index)=>{
+    const newBooks=books.filter((book,i)=>i !==index);
+    setBooks(newBooks);
+  };
 
   const addBook = () => {
     if (book.trim() !== "") { 
@@ -31,7 +38,8 @@ const BookApp = () => {
       </div>
       <ul>
         {books.map((book, index) => (
-          <li key={index}>{book.title}</li>
+          <li key={index}>{book.title}
+          <Button type="danger" className="red-button"onClick={()=>deleteBook(index)}>Kitabı Sil</Button></li>
         ))}
       </ul>
     </div>
